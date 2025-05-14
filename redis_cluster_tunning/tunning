@@ -1,0 +1,70 @@
+MASTER NODE CONFIG
+################################
+user@prod-redis-cluster-n1:~$  sudo cat /etc/redis/redis.conf
+bind 0.0.0.0
+port 6379
+appendonly yes
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+requirepass HEREPASS
+
+
+daemonize no
+supervised systemd
+maxclients 45000
+tcp-backlog 45536
+tcp-keepalive 180
+#timeout 0
+#protected-mode yes
+pidfile /run/redis/redis-server.pid
+loglevel notice
+logfile /var/log/redis/redis-server.log
+rdbcompression yes
+rdbchecksum yes
+dbfilename dump.rdb
+dir /var/lib/redis
+auto-aof-rewrite-percentage 0
+appendonly no
+save ""
+
+cluster-announce-hostname dr3-prod-redis-cluster-n1-new
+masterauth HEREPASS
+
+
+SLAVE NODE CONFIG
+################################
+user@prod-redis-cluster-n32:~#  cat /etc/redis/redis.conf
+bind 0.0.0.0
+port 6379
+appendonly yes
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+requirepass HEREPASS
+
+daemonize no
+supervised systemd
+maxclients 45000
+tcp-backlog 45536
+tcp-keepalive 180
+#timeout 0
+#protected-mode yes
+pidfile /run/redis/redis-server.pid
+loglevel notice
+logfile /var/log/redis/redis-server.log
+rdbcompression yes
+rdbchecksum yes
+dbfilename dump.rdb
+dir /var/lib/redis
+auto-aof-rewrite-percentage 0
+appendonly no
+save ""
+masterauth HEREPASS
+cluster-announce-hostname prod-redis-cluster-n32
+
+Description 
+https://redis.io/docs/latest/operate/oss_and_stack/management/optimization/
+https://dev.to/documatic/redis-performance-tuning-how-to-optimize-redis-for-high-traffic-applications-51km
+https://redis.io/kb/doc/1mebipyp1e/performance-tuning-best-practices
+https://dev.to/documatic/redis-performance-tuning-how-to-optimize-redis-for-high-traffic-applications-51km
